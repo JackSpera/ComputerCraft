@@ -1,0 +1,20 @@
+--config
+side="right" --side of modem
+controller=0 --id of controller
+ 
+ 
+rednet.open(side)
+while true do
+  id,mes=rednet.receive()
+  if id==controller then
+    if mes=="W" then turtle.forward() rednet.send(controller,"Fuel:"..turtle.getFuelLevel()) end
+    if mes=="S" then turtle.back() rednet.send(controller,"Fuel:"..turtle.getFuelLevel()) end
+    if mes=="A" then turtle.turnLeft() rednet.send(controller,"Fuel:"..turtle.getFuelLevel()) end
+    if mes=="D" then turtle.turnRight() rednet.send(controller,"Fuel:"..turtle.getFuelLevel()) end
+    if mes=="Q" then turtle.up() rednet.send(controller,"Fuel:"..turtle.getFuelLevel()) end
+    if mes=="E" then turtle.down() rednet.send(controller,"Fuel:"..turtle.getFuelLevel()) end
+    if mes=="R" then turtle.refuel() rednet.send(controller,"Fuel:"..turtle.getFuelLevel()) end
+    if mes=="F" then suc,block=turtle.inspect() if suc then rednet.send(controller,"Block:"..block.name) else rednet.send(controller,"Block:Air") end rednet.send(controller,"Fuel:"..turtle.getFuelLevel()) turtle.dig() end
+        if mes=="G" then  turtle.place() suc,block=turtle.inspect() if suc then rednet.send(controller,"Block:"..block.name) end end
+    end
+end
