@@ -1,0 +1,31 @@
+--config
+printer="" --side of peripheral
+modem="" --side of modem
+screen=""--side or name of monitor
+ 
+rednet.open(modem)
+per=peripheral.wrap(printer)
+mon=peripheral.wrap(screen)
+mon.clear()
+mon.setCursorPos(1,1)
+per.newPage()
+print("Nome della lezione:")
+title=read()
+per.setPageTitle(title)
+file=fs.open(title,"w")
+if per.getPaperLevel()>0 and per.getInkLevel()>0 then
+        print("----------")
+        while true do
+                msg=read()
+                if msg=="Chiudi||" then per.endPage() rednet.close(modem) file.close() break end
+                file.writeLine(msg)
+                per.write(msg)
+                mon.write(msg)
+                xx,yy=mon.getCursorPos()
+                mon.setCursorPos(1,yy+1)
+                x,y=per.getCursorPos()
+                per.setCursorPos(1,y+1)
+                rednet.broadcast(msg)
+                       
+        end
+end
