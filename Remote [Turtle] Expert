@@ -1,0 +1,12 @@
+--config
+side=""
+ 
+rednet.open(side)
+while true do
+        id,cmd=rednet.receive()
+        f=fs.open("mluacmd","w")
+        f.write(cmd)
+        f.close()
+        shell.run("mluacmd")
+        fs.delete("/mluacmd")
+end
