@@ -1,2 +1,0 @@
-# computercraft
-Computercraft LUA Programs
