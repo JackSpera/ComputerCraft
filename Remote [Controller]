@@ -1,0 +1,21 @@
+--config
+id=0 --ID of turtle
+side=""
+
+rednet.open(side) --side of modem
+while true do
+  ev,mes=os.pullEvent("key")
+  if mes==17 then mes="W" end
+  if mes==31 then mes="S" end
+  if mes==30 then mes="A" end
+  if mes==32 then mes="D" end
+  if mes==16 then mes="Q" end
+  if mes==18 then mes="E" end
+  if mes==19 then mes="R" end
+  if mes==33 then mes="F" end
+  if mes==34 then mes="G" end
+  rednet.send(id,mes)
+  print("Pressed:",mes)
+  idc,mesc=rednet.receive(all,1)
+  if idc==id then print(mesc) end
+end
