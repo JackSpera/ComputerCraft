@@ -1,0 +1,10 @@
+--config
+side=""
+id=0
+ 
+rednet.open(side)
+while true do
+  write(">")
+  cmd=read()
+  rednet.send(id,cmd)
+end
