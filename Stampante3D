@@ -1,0 +1,53 @@
+arg={...}
+i=1
+j=1
+if arg[1]==nil then print("Errore devi inserire un file")
+elseif fs.open(arg[1],"r") then
+fl=fs.open(arg[1],"r")
+li=fl.readLine()
+while true do
+for i=1,string.len(li) do
+  if string.sub(li,i,i)=="0" then
+    i=i+1 turtle.forward()
+  elseif string.sub(li,i,i)=="1" then
+    i=i+1 turtle.select(1) turtle.placeDown() turtle.forward()
+  elseif string.sub(li,i,i)=="2" then
+    i=i+1 turtle.select(2) turtle.placeDown() turtle.forward()
+  elseif string.sub(li,i,i)=="3" then
+    i=i+1 turtle.select(3) turtle.placeDown() turtle.forward()
+  elseif string.sub(li,i,i)=="4" then
+    i=i+1 turtle.select(4) turtle.placeDown() turtle.forward()
+  elseif string.sub(li,i,i)=="5" then
+    i=i+1 turtle.select(5) turtle.placeDown() turtle.forward()
+  elseif string.sub(li,i,i)=="6" then
+    i=i+1 turtle.select(6) turtle.placeDown() turtle.forward()
+  elseif string.sub(li,i,i)=="7" then
+    i=i+1 turtle.select(7) turtle.placeDown() turtle.forward()
+  elseif string.sub(li,i,i)=="8" then
+    i=i+1 turtle.select(8) turtle.placeDown() turtle.forward()
+  elseif string.sub(li,i,i)=="9" then
+    i=i+1 turtle.select(9) turtle.placeDown() turtle.forward()
+  elseif string.sub(li,i,i)=="A" then
+    i=i+1 turtle.select(10) turtle.placeDown() turtle.forward()
+  elseif string.sub(li,i,i)=="B" then
+    i=i+1 turtle.select(11) turtle.placeDown() turtle.forward()
+  elseif string.sub(li,i,i)=="C" then
+    i=i+1 turtle.select(12) turtle.placeDown() turtle.forward()
+  elseif string.sub(li,i,i)=="D" then
+    i=i+1 turtle.select(13) turtle.placeDown() turtle.forward()
+  elseif string.sub(li,i,i)=="E" then
+    i=i+1 turtle.select(14) turtle.placeDown() turtle.forward()
+  elseif string.sub(li,i,i)=="F" then
+    i=i+1 turtle.select(15) turtle.placeDown() turtle.forward()
+  elseif string.sub(li,i,i)=="G" then
+    i=i+1 turtle.select(16) turtle.placeDown() turtle.forward()
+  elseif string.sub(li,i,i)=="|" then
+    turtle.turnRight() turtle.forward() turtle.turnRight() for m=1,i-1 do turtle.forward() end turtle.turnLeft() turtle.turnLeft()
+  elseif string.sub(li,i,i)=="#" then
+  turtle.turnLeft() for m=1,j do turtle.forward() end turtle.turnRight() turtle.up()
+  end
+end
+li=fl.readLine() j=j+1
+end
+else print("File non trovato")
+end
