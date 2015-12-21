@@ -1,0 +1,79 @@
+sfondo=paintutils.loadImage("/system/Sfondo")
+barra=paintutils.loadImage("/system/Barra")
+paintutils.drawImage(sfondo,1,1)
+Bbarra=false
+
+function enab(val)
+ena=fs.open("/system/boot/enabled","w")
+ena.write(val)
+ena.close()
+end
+
+term.setCursorPos(-1,-1)
+term.setCursorPos(0,19)
+term.setBackgroundColor(8192)
+term.setTextColor(1)
+term.write(" Start ")
+
+term.setBackgroundColor(2048)
+for i=1,52 do
+term.write(" ")
+end
+term.setCursorPos(-1,-1)
+
+while true do
+ev,b,x,y=os.pullEvent("mouse_click")
+if Bbarra==false and b==1 and x<6 and y==19 then
+  term.setBackgroundColor(2048)
+  for i=8,18 do
+  term.setCursorPos(-1,i)
+  term.write("                   ")
+  end
+  term.setCursorPos(12,18)
+  term.setTextColor(16384)
+  term.write("Spegni")
+  term.setTextColor(1)
+  term.setCursorPos(1,8)
+  term.write("Internet Explorer")
+  term.setCursorPos(1,9)
+  term.write("Paint")
+  term.setCursorPos(1,10)
+  term.write("Word")
+  term.setCursorPos(1,11)
+  term.write("Worm")
+  term.setCursorPos(1,12)
+  term.write("Redirection")
+  Bbarra=true
+elseif Bbarra==true and y==8 and x<18 then
+  shell.run("/system/explorer")
+  enab("false")
+  os.reboot()
+elseif Bbarra==true and y==9 and x<6 then
+  shell.run("/system/Paint")
+  enab("false")
+  os.reboot()
+elseif Bbarra==true and y==10 and x<5 then
+  shell.run("/system/Word")
+  enab("false")
+  os.reboot() 
+elseif Bbarra==true and y==11 and x<5 then
+  term.setBackgroundColor(32768)
+  shell.run("worm")
+  enab("false")
+  os.reboot()
+elseif Bbarra==true and y==12 and x<12 then
+  shell.run("redirection")
+  enab("false")
+  os.reboot()
+
+elseif Bbarra==true and y==19 and x<5 then
+  paintutils.drawImage(sfondo,1,1)
+  Bbarra=false
+elseif Bbarra==true and y==18 and x>11 and x<17 then
+  enab("true")
+  os.shutdown()
+elseif Bbarra==false and b==3 and x<6 and y==19 then
+  enab("shell")
+  os.reboot()
+end
+end
