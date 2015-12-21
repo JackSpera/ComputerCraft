@@ -1,0 +1,26 @@
+b={}
+ena=fs.open("/system/boot/enabled","r").readAll()
+bk=fs.open("/system/boot/enabled","w")
+bk.write("true")
+bk.close()
+if ena=="true" then
+for i=1,9 do
+  b[i]=paintutils.loadImage("/system/boot/"..i)
+end
+for i=1,9 do
+  paintutils.drawImage(b[i],1,1)
+  sleep(1)
+  term.setCursorPos(-1,-1)
+end
+end
+if ena~="shell" then
+shell.run("/system/os")
+os.reboot()
+else
+term.setBackgroundColor(32768)
+term.clear()
+term.setTextColor(16)
+term.setCursorPos(1,1)
+print("Windows XP Shell")
+term.setTextColor(1)
+end
