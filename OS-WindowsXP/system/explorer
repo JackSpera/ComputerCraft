@@ -1,0 +1,66 @@
+url="http://www.google.it"
+
+term.setCursorPos(-1,-1)
+term.setBackgroundColor(128)
+term.clear()
+term.setCursorPos(8,2)
+term.setBackgroundColor(256)
+term.setTextColor(16)
+term.write("                                     ->")
+term.setCursorPos(51,1)
+term.setTextColor(16384)
+term.setBackgroundColor(128)
+term.write("X")
+term.setBackgroundColor(256)
+term.setTextColor(32768)
+term.setCursorPos(8,2)
+term.write(url)
+term.setBackgroundColor(1)
+for i=4,100 do
+  term.setCursorPos(-1,i)
+  term.write("                                                             ")
+end
+ci=0
+while true do
+ci=ci+1
+term.setCursorPos(0,19)
+n=math.random(1,49)
+term.setTextColor(32)
+term.setBackgroundColor(1)
+for i=1,n do
+term.write("_")
+end
+os.startTimer(3)
+e,b,x,y=os.pullEvent()
+if e=="mouse_click" and x==51 and y==1 then
+term.clear()
+os.reboot()
+end
+term.setCursorPos(1,19)
+term.write("                                                                                                                                               ")
+term.setCursorPos(-1,-1)
+if ci==60 then
+  term.setBackgroundColor(128)
+  term.setCursorPos(14,8)
+  for x=14,37 do
+  for y=8,12 do
+  term.setCursorPos(x,y)
+  term.write(" ")
+  end
+  end
+  term.setBackgroundColor(256)
+  for x=15,36 do
+  for y=9,11 do
+  term.setCursorPos(x,y)
+  term.write(" ")
+  end
+  end
+  term.setCursorPos(16,9)
+  term.write("Internet Explorer ha")
+  term.setCursorPos(16,10)
+  term.write("smesso di funzionare")
+  sleep(5)
+  os.reboot()
+
+end
+end
