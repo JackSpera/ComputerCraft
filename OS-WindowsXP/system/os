@@ -45,12 +45,12 @@ if Bbarra==false and b==1 and x<6 and y==19 then
   term.write("Redirection")
   Bbarra=true
 elseif Bbarra==true and y==8 and x<18 then
-  shell.run("/system/explorer")
   enab("false")
+  shell.run("/system/explorer")
   os.reboot()
 elseif Bbarra==true and y==9 and x<6 then
-  shell.run("/system/Paint")
   enab("false")
+  shell.run("/system/Paint")
   os.reboot()
 elseif Bbarra==true and y==10 and x<5 then
   shell.run("/system/Word")
@@ -58,12 +58,12 @@ elseif Bbarra==true and y==10 and x<5 then
   os.reboot() 
 elseif Bbarra==true and y==11 and x<5 then
   term.setBackgroundColor(32768)
-  shell.run("worm")
   enab("false")
+  shell.run("worm")
   os.reboot()
 elseif Bbarra==true and y==12 and x<12 then
-  shell.run("redirection")
   enab("false")
+  shell.run("redirection")
   os.reboot()
 
 elseif Bbarra==true and y==19 and x<5 then
