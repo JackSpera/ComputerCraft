@@ -1,0 +1,81 @@
+w,h=term.getSize()
+dir="/"
+
+while true do
+term.setBackgroundColor(128)
+term.setCursorPos(1,1)
+for i=1,3 do
+  for y=1,w+3 do
+    term.write(" ")
+    term.setCursorPos(y,i)
+  end
+  term.setCursorPos(1,i)
+end
+term.setCursorPos(4,1)
+term.setBackgroundColor(256)
+for i=4,h+1 do
+  for y=1,w+3 do
+  term.write(" ")
+  term.setCursorPos(y,i)
+  end
+  term.setCursorPos(1,i)
+end
+term.setCursorPos(1,1)
+term.setTextColor(1)
+term.setBackgroundColor(128)
+term.write("File System")
+term.setTextColor(16384)
+term.setCursorPos(w,1)
+term.write("X")
+term.setTextColor(1)
+
+file={}
+fol=fs.list(dir)
+table.insert(file,"[DIR]..")
+for i=1,#fol do
+  if fs.isDir(dir.."/"..fol[i]) then
+    table.insert(file,"[DIR] "..fol[i])       
+  elseif string.sub(fol[i],1,6)=="[TXT]#" then
+    table.insert(file,"[TXT] "..string.sub(fol[i],7))
+  elseif string.sub(fol[i],1,6)=="[IMG]#" then
+    table.insert(file,"[IMG] "..string.sub(fol[i],7))
+  else
+    table.insert(file,"[FILE] "..fol[i])
+  end
+end
+term.setBackgroundColor(256)
+term.setCursorPos(1,4)
+textutils.pagedTabulate(file)
+
+term.setCursorPos(7,2)
+term.setBackgroundColor(32768)
+term.setTextColor(32)
+term.write("                        ->")
+term.setTextColor(1)
+term.setCursorPos(7,2)
+EXE=""
+function re()
+EXE=read()
+end
+function ospull()
+ev,b,x,y=os.pullEvent("mouse_click")
+if x==51 and y==1 and b==1 then 
+os.reboot() 
+end
+end
+parallel.waitForAny(re,ospull)
+EXE=string.gsub(EXE," ","#")
+term.setCursorPos(7,2)
+term.write(EXE)
+iEXE=string.sub(EXE,1,6)
+oEXE=string.sub(EXE,7)
+if iEXE=="[TXT]#" then
+  shell.run("edit "..shell.path().."/"..EXE)
+elseif iEXE=="[IMG]#" then
+  shell.run("paint "..shell.path().."/"..EXE)
+elseif iEXE=="[DIR]#" then
+  dir=dir.."/"..oEXE
+end
+term.setCursorPos(7,2)
+term.write(EXE)
+end
