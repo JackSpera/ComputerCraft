@@ -2,8 +2,10 @@ w,h=term.getSize()
 dir="/"
 
 while true do
+function clearM()
 term.setBackgroundColor(128)
 term.setCursorPos(1,1)
+term.setTextColor(1)
 for i=1,3 do
   for y=1,w+3 do
     term.write(" ")
@@ -23,15 +25,20 @@ end
 term.setCursorPos(1,1)
 term.setTextColor(1)
 term.setBackgroundColor(128)
-term.write("File System")
+term.write("File System ["..dir.."]")
 term.setTextColor(16384)
 term.setCursorPos(w,1)
 term.write("X")
 term.setTextColor(1)
+end
+clearM()
 
+function printFol()
 file={}
 fol=fs.list(dir)
+if dir~="/" then
 table.insert(file,"[DIR]..")
+end
 for i=1,#fol do
   if fs.isDir(dir.."/"..fol[i]) then
     table.insert(file,"[DIR] "..fol[i])       
@@ -43,9 +50,12 @@ for i=1,#fol do
     table.insert(file,"[FILE] "..fol[i])
   end
 end
+clearM()
 term.setBackgroundColor(256)
 term.setCursorPos(1,4)
 textutils.pagedTabulate(file)
+end
+printFol()
 
 term.setCursorPos(7,2)
 term.setBackgroundColor(32768)
@@ -69,13 +79,31 @@ term.setCursorPos(7,2)
 term.write(EXE)
 iEXE=string.sub(EXE,1,6)
 oEXE=string.sub(EXE,7)
+sEXE=string.sub(1,2)
 if iEXE=="[TXT]#" then
   shell.run("edit "..shell.path().."/"..EXE)
 elseif iEXE=="[IMG]#" then
   shell.run("paint "..shell.path().."/"..EXE)
 elseif iEXE=="[DIR]#" then
-  dir=dir.."/"..oEXE
+if oEXE=="/" then
+dir="/"
+elseif oEXE==".." then
+dir="/"..fs.getDir("/"..dir)
+else
+dir=dir.."/"..oEXE
+if string.sub(dir,1,2)=="//" then 
+dir=string.sub(dir,2)
+end
+end
+elseif  sEXE=="mv" or "cp" then
+shell.run(EXE)
+printFol()
+elseif sEXE=="cd" then
+if string.sub(EXE,4,5)=="/" then
+else 
+dir=dir..string.sub(EXE,4)
 end
 term.setCursorPos(7,2)
 term.write(EXE)
+end
 end
