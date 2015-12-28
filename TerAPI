@@ -1,0 +1,65 @@
+function newTer(TexCo,BkCo,arr,arg,fun)
+  nomeTer={arr or {}}
+  nomeTer[2]=arg or {}
+  nomeTer[3]=TexCo or 1
+  nomeTer[4]=BkCo or 32768
+  nomeTer[5]=fun or {}
+  return(nomeTer)
+end
+function printTer(nomeTer,pos)
+  w,h=term.getSize()
+  term.setBackgroundColor(nomeTer[4])
+  term.setTextColor(nomeTer[3])
+  term.clear()
+  for i=1,#nomeTer[1] do
+    term.setCursorPos(w/2-(#nomeTer[1][i]/2) or w/2,i)
+    term.write(nomeTer[1][i] or "")
+  end
+  for i=1,w+5 do
+    term.setCursorPos(i,#nomeTer[1]+1)
+    term.write("-")
+  end
+  for i=1,#nomeTer[2] do
+  term.setCursorPos(1,#nomeTer[1]+2+i)
+  if i==pos then
+  term.write(">["..nomeTer[2][i].."]")
+  else
+  term.write(">"..nomeTer[2][i])
+  end
+  end
+end
+
+function execTer(nomeTer,pos)
+  term.setBackgroundColor(32768)
+  term.setTextColor(1)
+  term.clear()
+  term.setCursorPos(1,1)
+  if nomeTer[5][pos]==CHIUDI then
+    close=true
+  else
+    nomeTer[5][pos]()
+    close=true
+  end
+end
+
+function loadTer(nomeTer)
+ pos=1
+ printTer(nomeTer,pos)                          
+ while close==nil do
+   ev,b,ho=os.pullEvent("key")
+   if b==208 then
+     pos=pos+1
+   elseif b==200 then
+     pos=pos-1
+   elseif b==keys.enter then
+     execTer(nomeTer,pos)
+   end
+     if pos<=0 then
+    pos=1
+  end
+  if pos>#nomeTer[2] then
+    pos=#nomeTer[2]
+  end
+  printTer(nomeTer,pos)
+   end
+end
