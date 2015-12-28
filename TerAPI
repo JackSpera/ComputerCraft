@@ -27,6 +27,7 @@ function printTer(nomeTer,pos)
   term.write(">"..nomeTer[2][i])
   end
   end
+  term.setCursorPos(1,1)
 end
 
 function execTer(nomeTer,pos)
@@ -62,4 +63,7 @@ function loadTer(nomeTer)
   end
   printTer(nomeTer,pos)
    end
+  term.setBackgroundColor(32768)
+  term.setTextColor(1)
+  term.clear()
 end
