@@ -14,7 +14,7 @@ for i=1,9 do
 end
 end
 if ena~="shell" then
-shell.run("/system/os")
+shell.run("/system/boot/login")
 os.reboot()
 else
 term.setBackgroundColor(32768)
