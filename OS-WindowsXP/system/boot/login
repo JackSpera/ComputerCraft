@@ -1,0 +1,71 @@
+tr=true
+term.setCursorPos(-1,-1)
+term.setBackgroundColor(8)
+term.clear()
+term.setBackgroundColor(1)
+for y=2,7 do
+  for i=20,32 do
+    term.setCursorPos(i,y)
+    term.write(" ")
+  end
+end
+term.setBackgroundColor(32768)
+for i=20,32 do
+  term.setCursorPos(i,8)
+  term.write(" ")
+end
+term.setCursorPos(20,7)
+term.setBackgroundColor(1)
+term.setTextColor(256)
+term.write("Username")
+term.setBackgroundColor(32768)
+term.setCursorPos(20,8)
+usr=read()
+
+function men(val)
+	term.setCursorPos(20,7)
+	term.setBackgroundColor(1)
+	term.setTextColor(256)
+	term.write(val)
+	term.setBackgroundColor(32768)
+	term.setCursorPos(20,8)
+end
+
+
+function Pass()
+	men("Password")
+	pass=read("*")
+	fl=fs.open("/system/login/"..usr,"r")
+	Pa=fl.readLine()
+	fl.close()
+	if pass==Pa then
+		shell.run("/system/os")
+	else
+		UserLF()
+	end
+end
+
+function UserLF()
+	men("Username")
+	UserL=fs.list("/system/login/")
+	for i in pairs(UserL) do
+		if usr==UserL[i] then
+			tr=false
+			Pass()
+			break
+		end
+	end
+	
+	if tr==true then
+		men("Nuovo Utente")
+		usr=read()
+		men("Nuova Password")
+		pass=read()
+		fl=fs.open("/system/login/"..usr,"w")
+		fl.write(pass)
+		fl.close()
+		shell.run("/system/os")
+	end
+end
+UserLF()
+
