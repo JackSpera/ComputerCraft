@@ -4,9 +4,9 @@ paintutils.drawImage(sfondo,1,1)
 Bbarra=false
 
 function enab(val)
-ena=fs.open("/system/boot/enabled","w")
-ena.write(val)
-ena.close()
+	ena=fs.open("/system/boot/enabled","w")
+	ena.write(val)
+	ena.close()
 end
 
 term.setCursorPos(-1,-1)
@@ -45,31 +45,37 @@ if Bbarra==false and b==1 and x<6 and y==19 then
   term.write("Redirection")
   term.setCursorPos(1,13)
   term.write("Esplora File")
+    term.setCursorPos(1,14)
+  term.write("Messanger")
   Bbarra=true
 elseif Bbarra==true and b==1 and y==8 and x<18 then
-  enab("false")
+  enab("nLog")
   shell.run("/system/explorer")
   os.reboot()
 elseif Bbarra==true and b==1 and y==9 and x<6 then
-  enab("false")
+  enab("nLog")
   shell.run("/system/mPaint")
   os.reboot()
 elseif Bbarra==true and b==1 and y==10 and x<5 then
-  enab("false")
+  enab("nLog")
   shell.run("/system/Word")
   os.reboot() 
 elseif Bbarra==true and b==1 and y==11 and x<5 then
-  enab("false")
+  enab("nLog")
   term.setBackgroundColor(32768)
   shell.run("worm")
   os.reboot()
 elseif Bbarra==true and b==1 and y==12 and x<12 then
-  enab("false")
+  enab("nLog")
   shell.run("redirection")
   os.reboot()
 elseif Bbarra==true and b==1 and y==13 and x<12 then
-  enab("false")
+  enab("nLog")
   shell.run("/system/folder")
+  os.reboot()
+elseif Bbarra==true and b==1 and y==14 and x<12 then
+  enab("nLog")
+  shell.run("/system/Messanger")
   os.reboot()
 
 elseif Bbarra==true and b==1 and y==19 and x<5 then
