@@ -13,14 +13,17 @@ for i=1,9 do
   term.setCursorPos(-1,-1)
 end
 end
-if ena~="shell" then
-shell.run("/system/boot/login")
-os.reboot()
+if ena=="nLog" then
+  shell.run("/system/os")
+end
+if ena~="shell" and ena~="nLog" then
+  shell.run("/system/boot/login")
+  os.reboot()
 else
-term.setBackgroundColor(32768)
-term.clear()
-term.setTextColor(16)
-term.setCursorPos(1,1)
-print("Windows XP Shell")
-term.setTextColor(1)
+  term.setBackgroundColor(32768)
+  term.clear()
+  term.setTextColor(16)
+  term.setCursorPos(1,1)
+  print("Windows XP Shell")
+  term.setTextColor(1)
 end
