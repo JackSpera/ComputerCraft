@@ -8,11 +8,11 @@ function enab(val)
 	ena.write(val)
 	ena.close()
 end
-function run(run)
+function runf(run)
 	shell.run(run)
 end
 function quit()
-	e,b,x,yos.pullEvent("mouse_click")
+	e,b,x,y=os.pullEvent("mouse_click")
 	if x==51 and y==1 then
 		enab("nLog")
 		os.reboot()
@@ -21,13 +21,15 @@ end
 function win(run,sfo)
 	wind=window.create(term.native(),1,2,51,19)
 	term.setCursorPos(1,1)
-	term.setBackGroundColor(col or 128)
+	term.setBackgroundColor(sfo)
 	term.write("                                                                                                       ")
 	term.setTextColor(16384)
 	term.setCursorPos(51,1)
 	term.write("X")
 	term.redirect(wind)
-	parallel.waitForAny(run,quit)
+	parallel.waitForAny(quit,function() runf(run)end)
+ enab("nLog")
+ os.reboot()
 end
 
 
@@ -71,36 +73,20 @@ if Bbarra==false and b==1 and x<6 and y==19 then
   term.write("Messanger")
   Bbarra=true
 elseif Bbarra==true and b==1 and y==8 and x<18 then
-  enab("nLog")
-  win("/system/explorer")
-  --shell.run("/system/explorer")
-  os.reboot()
+  win("/system/explorer",32768)
 elseif Bbarra==true and b==1 and y==9 and x<6 then
-  enab("nLog")
-  shell.run("/system/Paint")
-  os.reboot()
+  win("/system/Paint",32768)
 elseif Bbarra==true and b==1 and y==10 and x<5 then
-  enab("nLog")
-  shell.run("/system/Word")
-  os.reboot() 
+  win("/system/Word",32768)
 elseif Bbarra==true and b==1 and y==11 and x<5 then
-  --enab("nLog")
   term.setBackgroundColor(32768)
-  win("worm",1)
-  --shell.run("worm")
-  --os.reboot()
+  win("worm",32768)
 elseif Bbarra==true and b==1 and y==12 and x<12 then
-  enab("nLog")
-  shell.run("redirection")
-  os.reboot()
+  win("redirection",32768)
 elseif Bbarra==true and b==1 and y==13 and x<12 then
-  enab("nLog")
-  shell.run("/system/folder")
-  os.reboot()
+  win("/system/Folder",128)
 elseif Bbarra==true and b==1 and y==14 and x<12 then
-  enab("nLog")
-  shell.run("/system/Messanger")
-  os.reboot()
+  win("/system/Messanger",32768)
 
 elseif Bbarra==true and b==1 and y==19 and x<5 then
   paintutils.drawImage(sfondo,1,1)
