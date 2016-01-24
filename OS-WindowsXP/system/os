@@ -12,10 +12,12 @@ function runf(run)
 	shell.run(run)
 end
 function quit()
-	e,b,x,y=os.pullEvent("mouse_click")
-	if x==51 and y==1 then
-		enab("nLog")
-		os.reboot()
+	while true do
+		e,b,x,y=os.pullEvent("mouse_click")
+		if x==51 and y==1 then
+			enab("nLog")
+			os.reboot()
+		end
 	end
 end
 function win(run,sfo)
