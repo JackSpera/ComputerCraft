@@ -8,6 +8,18 @@ function enab(val)
 	ena.write(val)
 	ena.close()
 end
+function win(run)
+	wind=window.create(term.native(),1,2,51,19)
+	term.setCursorPos(1,1)
+	term.setBackGroundColor(128)
+	term.write("                                                                                                       ")
+	term.setTextColor(16384)
+	term.setCursorPos(51,1)
+	term.write("X")
+	term.redirect(win)
+	shell.run(run)
+end
+
 
 term.setCursorPos(-1,-1)
 term.setCursorPos(0,19)
