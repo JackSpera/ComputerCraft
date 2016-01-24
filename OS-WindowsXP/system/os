@@ -75,7 +75,9 @@ if Bbarra==false and b==1 and x<6 and y==19 then
   term.write("Messanger")
   Bbarra=true
 elseif Bbarra==true and b==1 and y==8 and x<18 then
-  win("/system/explorer",32768)
+  enab("nLog")
+  shell.run("/system/explorer")
+  os.reboot()
 elseif Bbarra==true and b==1 and y==9 and x<6 then
   win("/system/Paint",32768)
 elseif Bbarra==true and b==1 and y==10 and x<5 then
