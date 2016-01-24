@@ -8,16 +8,26 @@ function enab(val)
 	ena.write(val)
 	ena.close()
 end
-function win(run)
+function run(run)
+	shell.run(run)
+end
+function quit()
+	e,b,x,yos.pullEvent("mouse_click")
+	if x==51 and y==1 then
+		enab("nLog")
+		os.reboot()
+	end
+end
+function win(run,sfo)
 	wind=window.create(term.native(),1,2,51,19)
 	term.setCursorPos(1,1)
-	term.setBackGroundColor(128)
+	term.setBackGroundColor(col or 128)
 	term.write("                                                                                                       ")
 	term.setTextColor(16384)
 	term.setCursorPos(51,1)
 	term.write("X")
-	term.redirect(win)
-	shell.run(run)
+	term.redirect(wind)
+	parallel.waitForAny(run,quit)
 end
 
 
@@ -74,10 +84,11 @@ elseif Bbarra==true and b==1 and y==10 and x<5 then
   shell.run("/system/Word")
   os.reboot() 
 elseif Bbarra==true and b==1 and y==11 and x<5 then
-  enab("nLog")
+  --enab("nLog")
   term.setBackgroundColor(32768)
-  shell.run("worm")
-  os.reboot()
+  win("worm",1)
+  --shell.run("worm")
+  --os.reboot()
 elseif Bbarra==true and b==1 and y==12 and x<12 then
   enab("nLog")
   shell.run("redirection")
