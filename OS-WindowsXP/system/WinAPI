@@ -1,0 +1,30 @@
+function enab(val)
+	ena=fs.open("/system/boot/enabled","w")
+	ena.write(val)
+	ena.close()
+end
+local function runf(run)
+	shell.run(run)
+end
+local function quit()
+	while true do
+		e,b,x,y=os.pullEvent("mouse_click")
+		if x==51 and y==1 then
+			enab("nLog")
+			os.reboot()
+		end
+	end
+end
+function win(run,sfo)
+	wind=window.create(term.native(),1,2,51,19)
+	term.setCursorPos(1,1)
+	term.setBackgroundColor(sfo)
+	term.write("                                                                                                       ")
+	term.setTextColor(16384)
+	term.setCursorPos(51,1)
+	term.write("X")
+	term.redirect(wind)
+	parallel.waitForAny(quit,function() runf(run)end)
+ enab("nLog")
+ os.reboot()
+end
