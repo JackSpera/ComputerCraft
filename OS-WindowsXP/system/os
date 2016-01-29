@@ -89,7 +89,9 @@ elseif Bbarra==true and b==1 and y==h-8 and x<5 then
 elseif Bbarra==true and b==1 and y==h-7 and x<12 then
   win("redirection",32768)
 elseif Bbarra==true and b==1 and y==h-6 and x<12 then
-  win("/system/Folder",128)
+  enab("nLog")
+  shell.run("/system/folder")
+  os.reboot()
 elseif Bbarra==true and b==1 and y==h-5 and x<12 then
   win("/system/Messanger",32768)
 
