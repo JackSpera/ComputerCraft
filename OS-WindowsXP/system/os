@@ -52,7 +52,7 @@ while true do
 ev,b,x,y=os.pullEvent("mouse_click")
 if Bbarra==false and b==1 and x<6 and y==h then
   term.setBackgroundColor(2048)
-  for i=8,h-1 do
+  for i=h-11,h-1 do
   term.setCursorPos(-1,i)
   term.write("                   ")
   end
