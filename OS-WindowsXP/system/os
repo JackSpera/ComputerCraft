@@ -3,6 +3,7 @@ barra=paintutils.loadImage("/system/Barra")
 paintutils.drawImage(sfondo,1,1)
 Bbarra=false
 
+w,h=term.getSize()
 function enab(val)
 	ena=fs.open("/system/boot/enabled","w")
 	ena.write(val)
@@ -55,50 +56,50 @@ if Bbarra==false and b==1 and x<6 and y==19 then
   term.setCursorPos(-1,i)
   term.write("                   ")
   end
-  term.setCursorPos(12,18)
+  term.setCursorPos(12,h-1)
   term.setTextColor(16384)
   term.write("Spegni")
   term.setTextColor(1)
-  term.setCursorPos(1,8)
+  term.setCursorPos(1,h-11)
   term.write("Internet Explorer")
-  term.setCursorPos(1,9)
+  term.setCursorPos(1,h-10)
   term.write("Paint")
-  term.setCursorPos(1,10)
+  term.setCursorPos(1,h-9)
   term.write("Word")
-  term.setCursorPos(1,11)
+  term.setCursorPos(1,h-8)
   term.write("Worm")
-  term.setCursorPos(1,12)
+  term.setCursorPos(1,h-7)
   term.write("Redirection")
-  term.setCursorPos(1,13)
+  term.setCursorPos(1,h-6)
   term.write("Esplora File")
-    term.setCursorPos(1,14)
+    term.setCursorPos(1,h-5)
   term.write("Messanger")
   Bbarra=true
-elseif Bbarra==true and b==1 and y==8 and x<18 then
+elseif Bbarra==true and b==1 and y==h-11 and x<18 then
   enab("nLog")
   shell.run("/system/explorer")
   os.reboot()
-elseif Bbarra==true and b==1 and y==9 and x<6 then
+elseif Bbarra==true and b==1 and y==h-10 and x<6 then
   win("/system/Paint",32768)
-elseif Bbarra==true and b==1 and y==10 and x<5 then
+elseif Bbarra==true and b==1 and y==h-9 and x<5 then
   win("/system/Word",32768)
-elseif Bbarra==true and b==1 and y==11 and x<5 then
+elseif Bbarra==true and b==1 and y==h-8 and x<5 then
   term.setBackgroundColor(32768)
   win("worm",32768)
-elseif Bbarra==true and b==1 and y==12 and x<12 then
+elseif Bbarra==true and b==1 and y==h-7 and x<12 then
   win("redirection",32768)
-elseif Bbarra==true and b==1 and y==13 and x<12 then
+elseif Bbarra==true and b==1 and y==h-6 and x<12 then
   win("/system/Folder",128)
-elseif Bbarra==true and b==1 and y==14 and x<12 then
+elseif Bbarra==true and b==1 and y==h-5 and x<12 then
   win("/system/Messanger",32768)
 
-elseif Bbarra==true and b==1 and y==19 and x<5 then
+elseif Bbarra==true and b==1 and y==h and x<5 then
   paintutils.drawImage(sfondo,1,1)
   Bbarra=false
-elseif Bbarra==true and b==1 and y==18 and x>11 and x<17 then
+elseif Bbarra==true and b==1 and y==h-1 and x>11 and x<17 then
   enab("true")
   os.shutdown()
-elseif Bbarra==false and b==3 and x<6 and y==19 then
+elseif Bbarra==false and b==3 and x<6 and y==h then
   enab("shell")
   os.reboot()
 end
