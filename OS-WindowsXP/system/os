@@ -9,10 +9,10 @@ function enab(val)
 	ena.write(val)
 	ena.close()
 end
-function runf(run)
+local function runf(run)
 	shell.run(run)
 end
-function quit()
+local function quit()
 	while true do
 		e,b,x,y=os.pullEvent("mouse_click")
 		if x==51 and y==1 then
@@ -27,7 +27,8 @@ function win(run,sfo)
 	term.setBackgroundColor(sfo)
 	term.write("                                                                                                       ")
 	term.setTextColor(16384)
-	term.setCursorPos(51,1)
+	w,h=term.getSize()
+	term.setCursorPos(w,1)
 	term.write("X")
 	term.redirect(wind)
 	parallel.waitForAny(quit,function() runf(run)end)
