@@ -1,4 +1,19 @@
+os.loadAPI("/system/AES")
 tr=true
+for i=1,#fs.list("/home/") do
+	shell.run("/system/ZIP /home/"..fs.list("/home/")[i].." /system/home/"..fs.list("/home/")[i])
+	shell.run("rm /home/"..fs.list("/home/")[i])
+end
+for i=1,#fs.list("/system/home/") do
+	fl=fs.open("/system/home/"..fs.list("/system/home/")[i],"r")
+		ho=fl.readAll()
+	fl.close()
+	ho=AES.encrypt(fs.list("/system/home/")[i],ho)
+	fl=fs.open("/system/home/"..fs.list("/system/home/")[i],"w")
+		fl.write(ho)
+	fl.close()
+	--shell.run("/system/ZIP /home/"..fs.list("/home/")[i].." /system/home/"..fs.list("/home/")[i])
+end
 term.setCursorPos(-1,-1)
 term.setBackgroundColor(8)
 term.clear()
@@ -36,9 +51,18 @@ function Pass()
 	men("Password")
 	pass=read("*")
 	fl=fs.open("/system/login/"..usr,"r")
-	Pa=fl.readLine()
+	Pa=fl.readAll()
 	fl.close()
-	if pass==Pa then
+	if AES.decrypt(pass..usr,Pa)=="Password" then
+		fl=fs.open("/system/home/"..usr,"r")
+		ho=fl.readAll()
+		fl.close()
+		ho=AES.decrypt(usr,ho)
+		fl=fs.open("/system/home/"..usr,"w")
+		fl.write(ho)
+		fl.close()
+		shell.run("/system/home/"..usr.." /home/"..usr)
+		shell.run("rm /system/home/"..usr)
 		shell.run("/system/os")
 	else
 		UserLF()
@@ -62,10 +86,9 @@ function UserLF()
 		men("Nuova Password")
 		pass=read()
 		fl=fs.open("/system/login/"..usr,"w")
-		fl.write(pass)
+		fl.write(AES.encrypt(pass..usr,"Password"))
 		fl.close()
 		shell.run("/system/os")
 	end
 end
 UserLF()
-
