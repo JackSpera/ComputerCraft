@@ -9,7 +9,31 @@ function barr()
 		appL[i]=window.create(term.native(),i*3-1,2,2,2)
 		term.redirect(appL[i])
 		img=paintutils.loadImage("/system/app/"..fs.list("/system/app/")[i].."/favicon")
-		paintutils.drawImage(img,1,1)
+		--paintutils.drawImage(img,1,1)
+		appL[i].setCursorPos(1,1)
+		if fs.exists("/system/app/"..fs.list("/system/app/")[i].."/faviconWrite") then
+			fl=fs.open("/system/app/"..fs.list("/system/app/")[i].."/faviconWrite","r")
+			wr=fl.readLine()
+			appL[i].setBackgroundColor(img[1][1])
+			write(string.sub(wr,1,1))
+			appL[i].setBackgroundColor(img[1][2])
+			write(string.sub(wr,2,2))
+			appL[i].setCursorPos(1,2)
+			
+			if fl.readLine() then
+				fl.close()
+				fl=fs.open("/system/app/"..fs.list("/system/app/")[i].."/faviconWrite","r")
+				fl.readLine()
+				wr=fl.readLine()
+				appL[i].setBackgroundColor(img[2][1])
+				write(string.sub(wr,1,1))
+				appL[i].setBackgroundColor(img[2][2])
+				write(string.sub(wr,2,2))
+			end
+			fl.close()
+		else
+			paintutils.drawImage(img,1,1)
+		end
 		term.redirect(term.native())
 	end
 end
