@@ -1,6 +1,10 @@
 w,h=term.getSize()
-dir="/"
-
+argv={...}
+if type(argv[1])=="nil" then
+  dir="/"
+else 
+  dir=argv[1]
+end
 while true do
 function clearM()
 term.setBackgroundColor(128)
