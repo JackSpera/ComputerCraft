@@ -88,6 +88,9 @@ function UserLF()
 		fl=fs.open("/system/login/"..usr,"w")
 		fl.write(AES.encrypt(pass..usr,"Password"))
 		fl.close()
+		fl=fs.open("/home/"..usr.."/Benvenuto","w")
+		fl.write("Benvenuto su questo OS.I file in home sono criptati")
+		fl.close()
 		shell.run("/system/os")
 	end
 end
