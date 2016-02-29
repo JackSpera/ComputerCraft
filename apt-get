@@ -1,0 +1,98 @@
+--config
+pkgF={}
+pkgN={}
+pkgU={}
+pkgI={}
+arg={...}
+table.insert(arg,"GUI")
+os.loadAPI("TerAPI")
+
+fl=fs.open(".JS_Repository","r")
+url=textutils.unserialise(fl.readAll())
+fl.close()
+
+fl=fs.open(".JS_repository_PKG","w")
+for i=1,#url do
+  if http.get(url[i])then 
+    --fl=fs.open(".JS_Repository_PKG","a")
+    fl.writeLine(http.get(url[i]).readAll())
+    --fl.close()
+  end
+end
+fl.close()
+
+pkgF=fs.open(".JS_Repository_PKG","r")
+while true do
+  line=pkgF.readLine() --RUNnome|CODICE
+  if line then
+  --print(string.sub(line,string.find(line,"|")+1))
+	  table.insert(pkgN,string.sub(line,4,string.find(line,"|")-1))
+	  table.insert(pkgU,string.sub(line,string.find(line,"|")+1))
+	  table.insert(pkgI,string.sub(line,0,3))
+  else
+    break
+  end
+end
+if arg[1]=="GUI" then
+	Termi=TerAPI.newTer(
+		32768,
+		1,
+		{"JS Store"},
+		{unpack(pkgN)},
+		{}
+	)
+
+	pos=TerAPI.loadTer(Termi,true)
+	if pkgI[pos]=="RUN" then
+		shell.run("pastebin run "..pkgU[pos])
+	elseif pkgI[pos]=="IST" and fs.exists(pkgN[pos])==false then
+		shell.run("pastebin get "..pkgU[pos].." "..pkgN[pos])
+	end
+	if term.isColor() then
+		term.setBackgroundColor(32768)
+		term.setTextColor(1)
+	end
+	term.clear()
+	term.setCursorPos(1,1)
+	shell.run("sh")
+elseif arg[1]=="install" then
+	pos=arg[2]
+	for i=1,#pkgN do
+		if pos==pkgN[i] then
+			pos=i
+		end
+	end
+	if pkgI[pos]=="RUN" then
+		shell.run("pastebin run "..pkgU[pos])
+	elseif pkgI[pos]=="IST" and fs.exists(pkgN[pos])==false then
+		shell.run("pastebin get "..pkgU[pos].." "..pkgN[pos])
+	end
+	if term.isColor() then
+		term.setBackgroundColor(32768)
+		term.setTextColor(1)
+	end
+elseif arg[1]=="repository" or arg[1]=="repo" then
+	if arg[2]=="add" and arg[3]~="GUI" then
+		fl=fs.open(".JS_Repository","r")
+		repo=textutils.unserialise(fl.readAll())
+		fl.close()
+		
+		table.insert(repo,arg[3])
+		fl=fs.open(".JS_Repository","w")
+		fl.write(textutils.serialise(repo))
+		fl.close()
+	elseif arg[2]=="remove" and arg[3]~="GUI" then
+		fl=fs.open(".JS_Repository","r")
+		repo=textutils.unserialise(fl.readAll())
+		fl.close()
+		
+		for i=1,#repo do
+			if url[i]==arg[3] then
+				table.remove(repo,i)
+			end
+		end
+		fl=fs.open(".JS_Repository","w")
+		fl.write(textutils.serialise(repo))
+		fl.close()
+	end
+end
