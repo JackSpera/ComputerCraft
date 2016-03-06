@@ -5,3 +5,4 @@ Qui troverai spiegazioni e wiki su come usare i miei programmi LUA per la mod di
 ## Progetti
 * [Remote Controller](https://github.com/JackSpera/ComputerCraft/wiki/Remote-Turtle)<br>
 * [Stampante 3D](https://github.com/JackSpera/ComputerCraft/wiki/Stampante-3D)<br>
+* [Terminal API](https://github.com/JackSpera/ComputerCraft/wiki/Terminal-API)<br>
