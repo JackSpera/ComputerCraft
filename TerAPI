@@ -19,13 +19,27 @@ function printTer(nomeTer,pos)
     term.setCursorPos(i,#nomeTer[1]+1)
     term.write("-")
   end
-  for i=1,#nomeTer[2] do
-  term.setCursorPos(1,#nomeTer[1]+2+i)
-  if i==pos then
-  term.write(">["..nomeTer[2][i].."]")
-  else
-  term.write(">"..nomeTer[2][i])
+  function startIndex(pos)
+    if pos < (h - (#nomeTer[1] + 1)) then
+      return 1
+    end
+    return pos - h + #nomeTer[1] + 2
   end
+
+  function min(a, b)
+    if a <= b then return a
+    else return b end
+  end
+
+  for y=#nomeTer[1] + 2,min(#nomeTer[2],h) + #nomeTer[1] + 1 do
+    index = startIndex(pos) + y - #nomeTer[1] -2
+    term.setCursorPos(1,y)
+
+    if index==pos then
+      term.write(">["..nomeTer[2][index].."]")
+    else
+      term.write(">"..nomeTer[2][index])
+    end
   end
   term.setCursorPos(1,1)
 end
@@ -36,16 +50,17 @@ function execTer(nomeTer,pos)
   term.clear()
   term.setCursorPos(1,1)
   if nomeTer[5][pos]==CHIUDI then
-    close=true
+    return true
   else
     nomeTer[5][pos]()
-    close=true
+    return true
   end
 end
 
 function loadTer(nomeTer)
  pos=1
- printTer(nomeTer,pos)                          
+ printTer(nomeTer,pos)  
+ local close = nil                        
  while close==nil do
    ev,b,ho=os.pullEvent("key")
    if b==208 then
@@ -53,7 +68,7 @@ function loadTer(nomeTer)
    elseif b==200 then
      pos=pos-1
    elseif b==keys.enter then
-     execTer(nomeTer,pos)
+     close = execTer(nomeTer,pos)
    end
      if pos<=0 then
     pos=1
